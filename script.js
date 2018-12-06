@@ -4408,16 +4408,19 @@ const githubData = [
   ]
 
 
-//  
+//  Question 1: Done 
+
+let commitTotal = 0;
 
   for (let i =0; i < githubData.length; i++){
 
     let commitFinder = githubData[i].payload.commits;
-        
-
-    // console.log (commitFinder);
+    commitTotal = commitFinder;
+    // for (let j=0; j < commitFinder[j]; j++){
+    // commitTotal+=1;
+    //}
     // returned 1 , 6, 2 meaning 9 total commits. 
-
+    
   }
 
 // NOT NECESSARY JUST WANTED THE PRINT TO BE A LITTLE MORE UNIFORM. SO I CREATED A QUICK PRINT FUNCTION.
@@ -4427,6 +4430,8 @@ const githubData = [
 
  }
 
+// Question 2: I added seperate containers in which to keep track of all the seperate changes that were registered.
+// I then created a seperate function in order to log those numbers to the console.  
 
  let pushEvent = 0;
  let pushReq = 0;
@@ -4480,7 +4485,8 @@ const githubData = [
       
     }
     
-    // console.table (githubData);
+    console.log (githubData);
+    printLog(commitTotal, "Total Commits")
     printLog( pushEvent, "Push");
     printLog(pushReq, "Push Request");
     printLog(pullEvent, "Pull");
@@ -4490,4 +4496,72 @@ const githubData = [
     printLog(commentEvent, "Comment");
    
 
-    
+    // Question 3: List approved pullrequest users.
+let pullRequestUsers = '';
+let pulls = '';
+let pullRequestApproved = '';
+
+for (let i = 0; i < githubData.length; i++){
+
+ pullRequestUsers = githubData[i].payload.pull_request; 
+
+ if(pullRequestUsers) {
+
+   pullRequestApproved =  pullRequestUsers.user.login;
+ }
+ 
+ console.log (`User ${pullRequestApproved} was approved for a pull request`);
+ 
+}    
+
+
+//Question 4: List all repositories on which Steve had an event, and show how many events were on each one.
+
+for (let i = 0; i < githubData.length;  i++){
+
+  let uSteve = githubData[i].payload.commits;
+  
+
+  if (uSteve){
+
+    for (key in uSteve){
+
+      let steveRepo = uSteve[key].author;
+      console.log (steveRepo);
+
+    }
+
+  }
+ 
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Question: 6 Where are the languages?
+// payload --> pull request --> head --> repo --> language
+
+let languageOb = [];
+
+githubData.forEach(stevent => {
+  if (stevent.type === "PullRequestEvent"){
+    console.log(stevent.payload.pull_request.head.repo.language)
+    console.log(stevent.payload.pull_request.base.repo.language)
+    stevent.payload.pull_request.head.repo.language = 
+  }
+
+});
+
+
